@@ -1,6 +1,36 @@
 package main
 
 import (
+	"fmt"
+	"net/http"
+	"os"
+	"time"
+	"log/slog"
+)
+
+func main() {
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+	
+	mux := http.NewServeMux()
+	mux.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintln(w, "ok")
+	})
+	
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintln(w, "Hello, World!")
+		
+		duration := time.Since(start)
+		logger.Info("request", "method", r.Method, "path", r.URL.Path, "status", http.StatusOK, "duration", duration)
+	})
+	
+	http.ListenAndServe(":8080", mux)
+}package main
+
+import (
     "log/slog"
     "net/http"
     "time"

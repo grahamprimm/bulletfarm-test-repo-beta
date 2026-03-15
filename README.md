@@ -167,3 +167,14 @@ curl -X DELETE http://localhost:8080/api/items/1
 - Each request is now logged with method, path, status code, and duration.
 - Created a health check endpoint at /healthz. 
 
+
+## Usage
+### Usage
+
+To run the server:
+
+```bash
+ go run main.go
+```
+
+Health check endpoint is available at `/healthz`. Each HTTP request will be logged with method, path, status code, and duration.
