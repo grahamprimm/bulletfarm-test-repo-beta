@@ -1,6 +1,42 @@
 package main
 
 import (
+	"log/slog"
+	"net/http"
+	"time"
+)
+
+func main() {
+	// Initialize logger
+	logger := slog.New(slog.NewJSONHandler(os.Stdout))
+
+	// Health check handler
+	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("OK"))
+	})
+
+	// Logging request details
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		statusCode := http.StatusOK
+
+		// Process the request (your actual logic here...)
+		// For example, just responding with a plain message:
+		w.Write([]byte("Hello, World!"))
+
+		// Log details
+		logger.Info("Request", "method", r.Method, "path", r.URL.Path, "status_code", statusCode, "duration", time.Since(start))
+	})
+
+	// Start server
+	logger.Info("Starting server on :8080")
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		logger.Error("Failed to start server", "error", err)
+	}
+}package main
+
+import (
 	"fmt"
 	"net/http"
 	"os"
