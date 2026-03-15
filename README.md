@@ -185,3 +185,50 @@ This project implements structured logging for the Go HTTP server using the log/
 ### Features:
 - Logs each request with method, path, status code, and duration.
 - Health check endpoint available at `/healthz`, returning a 200 OK status when the server is healthy.
+
+## API Documentation
+# API Documentation
+
+## Endpoints
+
+### Get Example Endpoint
+- **URL**: `/api/example`
+- **Method**: `GET`
+
+#### Request Example
+```bash
+curl -X GET http://localhost:8080/api/example
+```
+
+#### Response Example
+```json
+{
+    "message": "This is an example response"
+}
+```
+
+### Post Example Endpoint
+- **URL**: `/api/example`
+- **Method**: `POST`
+
+#### Request Example
+```bash
+curl -X POST http://localhost:8080/api/example -H 'Content-Type: application/json' -d '{"key": "value"}'
+```
+
+#### Response Example
+```json
+{
+    "status": "success",
+    "data": {"key": "value"}
+}
+```
+
+lable at `/healthz`. Each HTTP request will be logged with method, path, status code, and duration.
+
+## ## Logging
+This project implements structured logging for the Go HTTP server using the log/slog package.
+
+### Features:
+- Logs each request with method, path, status code, and duration.
+- Health check endpoint available at `/healthz`, returning a 200 OK status when the server is healthy.
