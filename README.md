@@ -4,11 +4,11 @@ This repository contains a Go server for managing items. Follow the instructions
 
 ## Getting Started
 
-## Prerequisites
+### Prerequisites
 - Go (version 1.16 or later)
 - Git
 
-## Installation
+### Installation
 1. Clone the repository:
    ```
    git clone https://github.com/grahamprimm/bulletfarm-test-repo-beta.git
@@ -19,29 +19,29 @@ This repository contains a Go server for managing items. Follow the instructions
    go mod tidy
    ```
 
-## Building the Server
+### Building the Server
 To build the server, run:
 ```bash
 go build -o bulletfarm-server main.go
 ```
 
-## Running the Server
+### Running the Server
 To run the server, execute:
 ```bash
 ./bulletfarm-server
 ```
 
-# API Documentation
+## API Documentation
 
-## Endpoints
+### Endpoints
 
-### GET /api/items
-#### Request Example:
+#### GET /api/items
+- **Description:** Retrieve a list of items.
+- **Request Example:**
 ```bash
 curl -X GET http://localhost:8080/api/items
 ```
-
-#### Response Example:
+- **Response Example:**
 ```json
 [
   {
@@ -52,13 +52,13 @@ curl -X GET http://localhost:8080/api/items
 ]
 ```
 
-### POST /api/items
-#### Request Example:
+#### POST /api/items
+- **Description:** Create a new item.
+- **Request Example:**
 ```bash
 curl -X POST http://localhost:8080/api/items -H 'Content-Type: application/json' -d '{"name": "New Item", "description": "Description of New Item"}'
 ```
-
-#### Response Example:
+- **Response Example:**
 ```json
 {
   "id": 2,
@@ -67,13 +67,13 @@ curl -X POST http://localhost:8080/api/items -H 'Content-Type: application/json'
 }
 ```
 
-### PUT /api/items/{id}
-#### Request Example:
+#### PUT /api/items/{id}
+- **Description:** Update an existing item by ID.
+- **Request Example:**
 ```bash
 curl -X PUT http://localhost:8080/api/items/1 -H 'Content-Type: application/json' -d '{"name": "Updated Item", "description": "Updated Description"}'
 ```
-
-#### Response Example:
+- **Response Example:**
 ```json
 {
   "id": 1,
@@ -82,94 +82,32 @@ curl -X PUT http://localhost:8080/api/items/1 -H 'Content-Type: application/json
 }
 ```
 
-### DELETE /api/items/{id}
-#### Request Example:
+#### DELETE /api/items/{id}
+- **Description:** Delete an item by ID.
+- **Request Example:**
 ```bash
 curl -X DELETE http://localhost:8080/api/items/1
 ```
-
-#### Response Example:
-```json
-{
-  "message": "Item deleted successfully"
-}
-```# bulletfarm-test-repo-beta
-Test repository for bulletfarm agent operator (beta)
-
-## Getting Started
-# Getting Started
-
-## Prerequisites
-- Go (version 1.16 or later)
-- Git
-
-## Installation
-1. Clone the repository:
-   ```
-   git clone https://github.com/grahamprimm/bulletfarm-test-repo-beta.git
-   cd bulletfarm-test-repo-beta
-   ```
-2. Install dependencies:
-   ```
-   go mod tidy
-   ```
-
-## Building the Server
-To build the server, run:
-```bash
-go build -o bulletfarm-server main.go
-```
-
-## Running the Server
-To run the server, execute:
-```bash
-./bulletfarm-server
-```
-Response Example:
-```json
-{
-  "id": 2,
-  "name": "New Item",
-  "description": "Description of New Item"
-}
-```
-
-### PUT /api/items/{id}
-#### Request Example:
-```bash
-curl -X PUT http://localhost:8080/api/items/1 -H 'Content-Type: application/json' -d '{"name": "Updated Item", "description": "Updated Description"}'
-```
-
-#### Response Example:
-```json
-{
-  "id": 1,
-  "name": "Updated Item",
-  "description": "Updated Description"
-}
-```
-
-### DELETE /api/items/{id}
-#### Request Example:
-```bash
-curl -X DELETE http://localhost:8080/api/items/1
-```
-
-#### Response Example:
+- **Response Example:**
 ```json
 {
   "message": "Item deleted successfully"
 }
 ```
 
-## ## New Features
-- Added structured logging to the Go HTTP server using the standard log/slog package.
-- Each request is now logged with method, path, status code, and duration.
-- Created a health check endpoint at /healthz.
+#### Health Check Endpoint
+- **GET /healthz**  
+- **Description:** Check the health status of the API.  
+- **Response:** 200 OK  
+
+### Logging
+This project implements structured logging for the Go HTTP server using the log/slog package.
+
+### Features:
+- Logs each request with method, path, status code, and duration.
+- Health check endpoint available at `/healthz`, returning a 200 OK status when the server is healthy.
 
 ## Usage
-### Usage
-
 To run the server:
 
 ```bash
@@ -177,18 +115,3 @@ To run the server:
 ```
 
 Health check endpoint is available at `/healthz`. Each HTTP request will be logged with method, path, status code, and duration.
-
-## ## Logging
-This project implements structured logging for the Go HTTP server using the log/slog package.
-
-### Features:
-- Logs each request with method, path, status code, and duration.
-- Health check endpoint available at `/healthz`, returning a 200 OK status when the server is healthy.
-
-## ## Health Check Endpoint
-A new health check endpoint has been added to the HTTP server:
-
-### /healthz
-- **Method:** GET
-- **Response:** 200 OK
-- Logs the health check request with method and path.
