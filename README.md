@@ -161,3 +161,65 @@ curl -X DELETE http://localhost:8080/api/items/1
   "message": "Item deleted successfully"
 }
 ```
+
+## API Documentation
+# API Documentation
+
+## Endpoints
+
+### GET /api/example
+#### Request
+```bash
+curl -X GET http://localhost:8080/api/example
+```
+#### Response
+```json
+{
+  "message": "This is an example response"
+}
+```
+
+### POST /api/example
+#### Request
+```bash
+curl -X POST http://localhost:8080/api/example -d '{"key":"value"}'
+```
+#### Response
+```json
+{
+  "status": "success"
+}
+```
+id": 2,
+  "name": "New Item",
+  "description": "Description of New Item"
+}
+```
+
+### PUT /api/items/{id}
+#### Request Example:
+```bash
+curl -X PUT http://localhost:8080/api/items/1 -H 'Content-Type: application/json' -d '{"name": "Updated Item", "description": "Updated Description"}'
+```
+
+#### Response Example:
+```json
+{
+  "id": 1,
+  "name": "Updated Item",
+  "description": "Updated Description"
+}
+```
+
+### DELETE /api/items/{id}
+#### Request Example:
+```bash
+curl -X DELETE http://localhost:8080/api/items/1
+```
+
+#### Response Example:
+```json
+{
+  "message": "Item deleted successfully"
+}
+```
