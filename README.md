@@ -167,3 +167,67 @@ curl -X DELETE http://localhost:8080/api/items/1
 - Each request is now logged with method, path, status code, and duration.
 - Created a health check endpoint at /healthz. 
 
+
+## API Documentation
+# API Documentation
+
+## Endpoints
+
+### 1. Get Users
+- **Method:** GET
+- **Endpoint:** `/api/users`
+- **Request Example:**
+  ```bash
+  curl -X GET http://localhost:8080/api/users
+  ```
+- **Response Example:**
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "jane@example.com"
+    }
+  ]
+  ```
+
+### 2. Create User
+- **Method:** POST
+- **Endpoint:** `/api/users`
+- **Request Example:**
+  ```bash
+  curl -X POST http://localhost:8080/api/users \
+    -H 'Content-Type: application/json' \
+    -d '{"name":"Alice", "email":"alice@example.com"}'
+  ```
+- **Response Example:**
+  ```json
+  {
+    "id": 3,
+    "name": "Alice",
+    "email": "alice@example.com"
+  }
+  ```
+
+### 3. Get User by ID
+- **Method:** GET
+- **Endpoint:** `/api/users/{id}`
+- **Request Example:**
+  ```bash
+  curl -X GET http://localhost:8080/api/users/1
+  ```
+- **Response Example:**
+  ```json
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+  ```
+ health check endpoint at /healthz. 
+
