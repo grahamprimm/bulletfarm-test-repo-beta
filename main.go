@@ -1,6 +1,32 @@
 package main
 
 import (
+    "log/slog"
+    "net/http"
+    "os"
+    "time"
+)
+
+func main() {
+    logger := slog.New(slog.NewTextHandler(os.Stdout))
+
+    http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+        w.WriteHeader(http.StatusOK)
+        w.Write([]byte("OK"))
+        logger.Info("Health check request", "method", r.Method, "path", r.URL.Path)
+    })
+
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        start := time.Now()
+        w.WriteHeader(http.StatusOK)
+        duration := time.Since(start)
+        logger.Info("Request handled", "method", r.Method, "path", r.URL.Path, "status", http.StatusOK, "duration", duration)
+    })
+
+    log.Fatal(http.ListenAndServe(":8080", nil))
+package main
+
+import (
 	"log/slog"
 	"net/http"
 	"time"
