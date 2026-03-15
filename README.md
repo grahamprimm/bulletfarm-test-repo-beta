@@ -165,8 +165,7 @@ curl -X DELETE http://localhost:8080/api/items/1
 ## ## New Features
 - Added structured logging to the Go HTTP server using the standard log/slog package.
 - Each request is now logged with method, path, status code, and duration.
-- Created a health check endpoint at /healthz. 
-
+- Created a health check endpoint at /healthz.
 
 ## Usage
 ### Usage
