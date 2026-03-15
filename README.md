@@ -178,3 +178,66 @@ To run the server:
 ```
 
 Health check endpoint is available at `/healthz`. Each HTTP request will be logged with method, path, status code, and duration.
+
+## API Documentation
+# API Documentation
+
+## Endpoints
+
+### 1. GET /api/items
+- **Description:** Retrieve a list of items.
+- **Request Example:**
+```bash
+curl -X GET http://localhost:8080/api/items
+```
+- **Response Example:**
+```json
+[
+    {"id": 1, "name": "Item 1"},
+    {"id": 2, "name": "Item 2"}
+]
+```
+
+### 2. POST /api/items
+- **Description:** Create a new item.
+- **Request Example:**
+```bash
+curl -X POST http://localhost:8080/api/items -d '{"name": "New Item"}' -H 'Content-Type: application/json'
+```
+- **Response Example:**
+```json
+{"id": 3, "name": "New Item"}
+```
+
+### 3. GET /api/items/{id}
+- **Description:** Retrieve a single item by ID.
+- **Request Example:**
+```bash
+curl -X GET http://localhost:8080/api/items/1
+```
+- **Response Example:**
+```json
+{"id": 1, "name": "Item 1"}
+```
+
+### 4. PUT /api/items/{id}
+- **Description:** Update an item by ID.
+- **Request Example:**
+```bash
+curl -X PUT http://localhost:8080/api/items/1 -d '{"name": "Updated Item"}' -H 'Content-Type: application/json'
+```
+- **Response Example:**
+```json
+{"id": 1, "name": "Updated Item"}
+```
+
+### 5. DELETE /api/items/{id}
+- **Description:** Delete an item by ID.
+- **Request Example:**
+```bash
+curl -X DELETE http://localhost:8080/api/items/1
+```
+- **Response Example:**
+```json
+{"message": "Item deleted successfully"}
+```
