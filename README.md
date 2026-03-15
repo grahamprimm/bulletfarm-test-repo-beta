@@ -185,3 +185,11 @@ This project implements structured logging for the Go HTTP server using the log/
 ### Features:
 - Logs each request with method, path, status code, and duration.
 - Health check endpoint available at `/healthz`, returning a 200 OK status when the server is healthy.
+
+## ## Health Check Endpoint
+A new health check endpoint has been added to the HTTP server:
+
+### /healthz
+- **Method:** GET
+- **Response:** 200 OK
+- Logs the health check request with method and path.
