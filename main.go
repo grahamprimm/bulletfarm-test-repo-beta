@@ -1,5 +1,35 @@
 package main
 
+import (
+    "log/slog"
+    "net/http"
+    "time"
+)
+
+func main() {
+    logger := slog.New(slog.NewTextHandler(os.Stdout))
+
+    http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+        w.WriteHeader(http.StatusOK)
+        w.Write([]byte("OK"))
+    })
+
+    http.HandleFunc("/your-endpoint", func(w http.ResponseWriter, r *http.Request) {
+        start := time.Now()
+        // Your handler logic here
+
+        statusCode := http.StatusOK // Change this based on your logic
+
+        logger.Info("Request handled", "method", r.Method, "path", r.URL.Path, "status_code", statusCode, "duration", time.Since(start))
+        w.WriteHeader(statusCode)
+    })
+
+    logger.Info("Starting server on :8080")
+    if err := http.ListenAndServe(":8080", nil); err != nil {
+        logger.Error("Server failed", "error", err)
+    }
+package main
+
 import \"fmt\"
 
 func add(a int, b int) int {
