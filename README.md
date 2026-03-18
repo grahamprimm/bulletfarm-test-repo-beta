@@ -40,3 +40,23 @@ The application can be configured using environment variables and a config.yaml 
 - **LogLevel**: (string) Log level (e.g., DEBUG, INFO, WARN, ERROR). Can be set via the `LOG_LEVEL` environment variable.
 - **Timeout**: (int) Timeout value in seconds. Can be set via the `TIMEOUT` environment variable.
 - **FeatureFlag**: (bool) A feature toggle. Can be set via the `FEATURE_FLAG` environment variable.
+
+## ## Configuration
+The application supports configuration via environment variables and a YAML file. Below are the configuration options:
+
+### Configuration Options
+- `SERVER_PORT`: The port that the server listens on. Default is `8080`.
+- `LOG_LEVEL`: The logging level. Default is `INFO`.
+- `TIMEOUT`: Timeout value for requests in seconds. Default is `30`.
+- `FEATURE_X`: Enable or disable feature X. Default is `false`.
+- `FEATURE_Y`: Enable or disable feature Y. Default is `false`.
+
+### Example config.yaml
+```yaml
+server_port: "8080"
+log_level: "INFO"
+timeout: 30
+feature_flags:
+  feature_x: true
+  feature_y: false
+```

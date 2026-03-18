@@ -1,56 +1,80 @@
-package config
+package main
 
 import (
-	"gopkg.in/yaml.v2"
-	"os"
-	"log"
+    "gopkg.in/yaml.v2"
+    "log"
+    "os"
+    "time"
 )
 
-// Config holds the application configuration
+// Config holds the configuration values loaded from environment variables and config.yaml
 type Config struct {
-	ServerPort  string `yaml:"server_port"`  // Port for the server to listen on
-	LogLevel    string `yaml:"log_level"`    // Log level (e.g., DEBUG, INFO, WARN, ERROR)
-	Timeout     int    `yaml:"timeout"`      // Timeout value in seconds
-	FeatureFlag bool   `yaml:"feature_flag"` // A feature toggle
+    ServerPort  string `yaml:"server_port"`
+    LogLevel    string `yaml:"log_level"`
+    Timeout     time.Duration `yaml:"timeout"`
+    FeatureFlags map[string]bool `yaml:"feature_flags"`
 }
 
-// LoadConfig reads configuration from the environment and a YAML file
-func LoadConfig() (*Config, error) {
-	var config Config
-	
-	// Load from YAML file
-	file, err := os.Open("./config.yaml")
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
+// LoadConfig loads the configuration from environment variables and a YAML file.
+func LoadConfig(filePath string) (*Config, error) {
+    config := &Config{
+        ServerPort:  getEnv("SERVER_PORT", "8080"),
+        LogLevel:    getEnv("LOG_LEVEL", "INFO"),
+        Timeout:     time.Duration(getEnvInt("TIMEOUT", 30)) * time.Second,
+        FeatureFlags: getFeatureFlags(),
+    }
 
-	decoder := yaml.NewDecoder(file)
-	if err := decoder.Decode(&config); err != nil {
-		return nil, err
-	}
-	
-	// Load from environment variables
-	if port, exists := os.LookupEnv("SERVER_PORT"); exists {
-		config.ServerPort = port
-	}
-	if logLevel, exists := os.LookupEnv("LOG_LEVEL"); exists {
-		config.LogLevel = logLevel
-	}
-	if timeout, exists := os.LookupEnv("TIMEOUT"); exists {
-		config.Timeout = timeout
-	}
-	if featureFlag, exists := os.LookupEnv("FEATURE_FLAG"); exists {
-		config.FeatureFlag = featureFlag == "true"
-	}
+    if err := loadYAMLConfig(filePath, config); err != nil {
+        return nil, err
+    }
 
-	// Validate required fields
-	if config.ServerPort == "" {
-		log.Fatal("SERVER_PORT is required")
-	}
-	if config.LogLevel == "" {
-		log.Fatal("LOG_LEVEL is required")
-	}
-	
-	return &config, nil
+    return config, validateConfig(config)
+}
+
+func getEnv(key, defaultValue string) string {
+    if value, exists := os.LookupEnv(key); exists {
+        return value
+    }
+    return defaultValue
+}
+
+func getEnvInt(key string, defaultValue int) int {
+    envValue := getEnv(key, "")
+    if envValue == "" {
+        return defaultValue
+    }
+    value, err := strconv.Atoi(envValue)
+    if err != nil {
+        return defaultValue
+    }
+    return value
+}
+
+func getFeatureFlags() map[string]bool {
+    // Load feature flags from environment variables or return defaults
+    return map[string]bool{
+        "feature_x": getEnv("FEATURE_X", "false") == "true",
+        "feature_y": getEnv("FEATURE_Y", "false") == "true",
+    }
+}
+
+func loadYAMLConfig(filePath string, config *Config) error {
+    file, err := os.Open(filePath)
+    if err != nil {
+        return err
+    }
+    defer file.Close()
+
+    decoder := yaml.NewDecoder(file)
+    return decoder.Decode(config)
+}
+
+func validateConfig(config *Config) error {
+    if config.ServerPort == "" {
+        return fmt.Errorf("missing required field: ServerPort")
+    }
+    if config.LogLevel == "" {
+        return fmt.Errorf("missing required field: LogLevel")
+    }
+    return nil
 }
