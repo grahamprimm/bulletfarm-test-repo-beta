@@ -35,9 +35,20 @@ INFO: Request handled method=GET path=/ status_code=200 duration=5ms
 ## API Endpoints
 
 ### Metrics
+## Metrics
 
-- **Endpoint:** `/metrics`
-- **Method:** `GET`
-- **Description:** Exposes Prometheus-style metrics including request count, request duration histogram, and active connections gauge.
-- **Response Format:** Text format suitable for Prometheus.
+The application exposes a `/metrics` endpoint that provides Prometheus-style metrics. The following metrics are available:
 
+- **request_count**: Total number of requests received by the server.
+- **request_duration**: Duration of requests in seconds.
+- **active_connections**: Current number of active connections to the server.
+
+### Example Query
+
+To retrieve metrics, make a request to the `/metrics` endpoint:
+
+```
+curl http://localhost:8080/metrics
+```
+
+The output is formatted in Prometheus text format, suitable for scraping by Prometheus.
