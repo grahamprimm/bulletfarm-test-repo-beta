@@ -30,3 +30,13 @@ Example log entry:
 ```
 INFO: Request handled method=GET path=/ status_code=200 duration=5ms
 ```
+
+## Configuration
+## Configuration
+
+The application can be configured using environment variables and a config.yaml file. Below are the available configuration options:
+
+- **ServerPort**: (string) Port for the server to listen on. Can be set via the `SERVER_PORT` environment variable.
+- **LogLevel**: (string) Log level (e.g., DEBUG, INFO, WARN, ERROR). Can be set via the `LOG_LEVEL` environment variable.
+- **Timeout**: (int) Timeout value in seconds. Can be set via the `TIMEOUT` environment variable.
+- **FeatureFlag**: (bool) A feature toggle. Can be set via the `FEATURE_FLAG` environment variable.

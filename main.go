@@ -10,7 +10,12 @@ import (
 func main() {
     logger := slog.New(slog.NewTextHandler(os.Stdout))
 
-    // Health check endpoint
+    // Load configuration
+	config, err := config.LoadConfig()
+	if err != nil {
+		log.Fatalf("could not load config: %v", err)
+	}
+	
     http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
         w.WriteHeader(http.StatusOK)
         w.Write([]byte("OK"))
