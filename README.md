@@ -30,3 +30,14 @@ Example log entry:
 ```
 INFO: Request handled method=GET path=/ status_code=200 duration=5ms
 ```
+
+## API Endpoints
+## API Endpoints
+
+### Metrics
+
+- **Endpoint:** `/metrics`
+- **Method:** `GET`
+- **Description:** Exposes Prometheus-style metrics including request count, request duration histogram, and active connections gauge.
+- **Response Format:** Text format suitable for Prometheus.
+
