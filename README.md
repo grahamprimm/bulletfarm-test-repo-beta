@@ -15,3 +15,18 @@ Structured logging has been implemented using the `log/slog` package. Each reque
 - **Status Code:** HTTP status code returned
 - **Duration:** Time taken to process the request
 
+
+## ### Health Check Endpoint
+The application includes a health check endpoint at `/healthz` that responds with a 200 OK status and logs the request method and path.
+
+### Logging
+The application uses structured logging with the `log/slog` package to log each HTTP request. The logs include:
+- Request method
+- Request path
+- Response status code
+- Duration of the request
+
+Example log entry:
+```
+INFO: Request handled method=GET path=/ status_code=200 duration=5ms
+```
